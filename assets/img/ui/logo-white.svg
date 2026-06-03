@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Fairdeal International">
+  <title>Fairdeal International</title>
+  <rect width="64" height="64" rx="12" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)"/>
+  <path d="M19 16 H47 V24 H27 V30 H43 V38 H27 V48 H19 Z" fill="#FFFFFF"/>
+  <circle cx="48" cy="48" r="4" fill="#C49A5C"/>
+</svg>

@@ -1,0 +1,36 @@
+# Netlify configuration for Fairdeal International (static multipage site)
+
+[build]
+  publish = "."
+
+# Long-cache hashed/static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+    Content-Type = "application/manifest+json"
+
+# Security & best-practice headers for HTML pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Pretty URLs: allow /privacy-policy and /terms without the .html
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200

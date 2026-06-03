@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Claude Code local state
+.claude/settings.local.json
+.superpowers/
+
+# Large raw source archive (exceeds GitHub 100 MB file limit)
+website images-20260603T060707Z-3-001.zip
+*.zip
+
+# Raw image source folder — not referenced by the site, kept locally only
+website images/

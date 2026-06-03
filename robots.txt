@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /assets/img/raw/
+Disallow: /*.json$
+
+Sitemap: https://fairdealinternational.in/sitemap.xml

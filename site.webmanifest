@@ -1,0 +1,27 @@
+{
+  "name": "Fairdeal International",
+  "short_name": "Fairdeal",
+  "description": "Kolkata's trusted electronics & home appliance store since 1966.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1FB5E5",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/img/ui/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/ui/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
