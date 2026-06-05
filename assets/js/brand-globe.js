@@ -92,12 +92,17 @@ class BrandCylinder {
 
   measure() {
     const rect = this.scene.getBoundingClientRect();
+    // Drive every dimension (chip size, earth size, radius, vSpacing) from a
+    // single `size` so the whole composition scales together across viewports.
+    // Cylinder radius is intentionally smaller than the Earth's radius (which
+    // is 0.42·size) so chips orbit *just inside* the globe perimeter and read
+    // as logos pinned to the surface, not satellites flying around in space.
     this.size = Math.min(rect.width, rect.height);
-    // Cylinder radius tuned to keep neighbouring chips on the same ring close
-    // along the arc (chord ≈ 2R·sin(20°) for 9 chips). Tighter than the scene
-    // can afford, so empty arc-space between chips stays small.
-    this.radius = Math.min(rect.width * 0.25, rect.height * 0.42);
-    this.vSpacing = rect.height * 0.22;
+    this.scene.style.setProperty('--scene-size', `${this.size}px`);
+    // Tight cylinder — chips orbit close around the Earth. vSpacing must clear
+    // the bigger chips (now ~0.21·size) vertically without ring-to-ring overlap.
+    this.radius = this.size * 0.32;
+    this.vSpacing = this.size * 0.22;
   }
 
   positionChips() {

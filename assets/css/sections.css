@@ -596,9 +596,12 @@
 .brand-globe-scene {
   position: relative;
   width: 100%;
-  max-width: 1180px;
+  max-width: 760px;
   margin: clamp(0.5rem, 2vw, 1.5rem) auto 0;
-  aspect-ratio: 1.7 / 1;
+  /* 1.5 aspect on desktop → scene height drives `min(width,height)`, so chip
+     and earth sizing stays predictable. JS sets --scene-size from this. */
+  aspect-ratio: 1.5 / 1;
+  --scene-size: 480px;
   touch-action: none;
   cursor: grab;
   user-select: none;
@@ -631,7 +634,9 @@
 .brand-globe-earth {
   position: absolute;
   left: 50%; top: 50%;
-  width: 48%;
+  /* Earth fills most of the scene so chips orbit just inside its perimeter.
+     Clamped so it never gets too tiny or too huge. */
+  width: clamp(170px, calc(var(--scene-size) * 0.85), 540px);
   aspect-ratio: 1 / 1;
   height: auto;
   transform: translate(-50%, -50%);
@@ -640,12 +645,12 @@
   filter: drop-shadow(0 0 30px rgba(34, 211, 238, 0.28));
 }
 
-/* The rotator — preserve-3d so children compose with the spin.
-   Shifted up so the chips don't sit visually low in the scene; the Earth SVG
-   centers itself on the scene, so its position is unaffected. */
+/* The rotator — preserve-3d so children compose with the spin. Shifted up so
+   chips orbit slightly above the Earth's centre; the Earth SVG centers on the
+   scene itself, so its position stays untouched. */
 .brand-globe-rotator {
   position: absolute;
-  inset: -8% 0 8% 0;
+  inset: -7% 0 7% 0;
   transform-style: preserve-3d;
   transform-origin: 50% 50%;
   will-change: transform;
@@ -655,13 +660,21 @@
 /* Frosted-glass rounded-square chip — JS drives the 3D transform; CSS handles
    look, hover/zoom states. Do NOT add transform/transition-on-transform here. */
 .brand-globe-item {
+  /* Every chip dimension flows from --chip-size, which itself scales with the
+     scene. .is-major overrides --chip-size so size/margin/padding/radius all
+     adjust together — no per-property duplication. */
+  /* 0.20 ≈ matches the 0.219·size chord between adjacent chips on a ring, so
+     neighbours nearly touch instead of leaving big empty arc space. */
+  --chip-size: clamp(44px, calc(var(--scene-size) * 0.20), 120px);
   position: absolute;
   left: 50%; top: 50%;
-  width: 112px; height: 112px;
-  margin-left: -56px; margin-top: -56px;
+  width: var(--chip-size);
+  height: var(--chip-size);
+  margin-left: calc(var(--chip-size) * -0.5);
+  margin-top: calc(var(--chip-size) * -0.5);
   display: flex; align-items: center; justify-content: center;
-  padding: 10px;
-  border-radius: 26px;
+  padding: calc(var(--chip-size) * 0.09);
+  border-radius: calc(var(--chip-size) * 0.22);
   /* Fully opaque so the Earth's graticule never bleeds through the chip.
      The "frosted" feel comes from the gradient + shadow, not transparency. */
   background: linear-gradient(160deg, #ffffff 0%, #f3f8fb 100%);
@@ -681,10 +694,8 @@
 
 /* MAJOR — flagship brands in the middle ring, larger and brighter */
 .brand-globe-item.is-major {
-  width: 158px; height: 158px;
-  margin-left: -79px; margin-top: -79px;
-  padding: 14px;
-  border-radius: 30px;
+  /* Override the chip-size token; width/margin/padding/radius pick it up. */
+  --chip-size: clamp(48px, calc(var(--scene-size) * 0.21), 130px);
   background: linear-gradient(160deg, #ffffff 0%, #f5fafd 100%);
 }
 
@@ -752,34 +763,9 @@
 }
 
 @media (max-width: 720px) {
-  .brand-globe-scene { max-width: 92vw; aspect-ratio: 1.25 / 1; }
-  .brand-globe-earth { width: 64%; }
-  .brand-globe-item {
-    width: 76px; height: 76px;
-    margin-left: -38px; margin-top: -38px;
-    padding: 10px;
-    border-radius: 18px;
-  }
-  .brand-globe-item.is-major {
-    width: 110px; height: 110px;
-    margin-left: -55px; margin-top: -55px;
-    padding: 14px;
-    border-radius: 22px;
-  }
-}
-@media (max-width: 480px) {
-  .brand-globe-item {
-    width: 62px; height: 62px;
-    margin-left: -31px; margin-top: -31px;
-    padding: 8px;
-    border-radius: 14px;
-  }
-  .brand-globe-item.is-major {
-    width: 90px; height: 90px;
-    margin-left: -45px; margin-top: -45px;
-    padding: 12px;
-    border-radius: 18px;
-  }
+  /* Chip/earth dimensions auto-scale via --scene-size; only constrain the
+     scene's footprint here so it doesn't run edge-to-edge on small phones. */
+  .brand-globe-scene { max-width: 92vw; aspect-ratio: 1.2 / 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
