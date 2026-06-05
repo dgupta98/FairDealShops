@@ -45,7 +45,7 @@ function animateCount(el) {
   const target = parseFloat(el.dataset.countTo);
   if (!Number.isFinite(target)) return;
   const fmt = FORMATTERS[el.dataset.countFormat] || FORMATTERS.plain;
-  const duration = 1400;
+  const duration = 11000;
   const start = performance.now();
 
   function frame(now) {

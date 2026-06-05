@@ -12,14 +12,14 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/assets/img/ui/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/assets/img/ui/logo-fairdeal.png",
+      "sizes": "139x137",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/img/ui/apple-touch-icon.png",
-      "sizes": "180x180",
+      "src": "/assets/img/ui/logo-fairdeal.png",
+      "sizes": "any",
       "type": "image/png",
       "purpose": "any"
     }
