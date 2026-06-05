@@ -99,10 +99,11 @@ class BrandCylinder {
     // as logos pinned to the surface, not satellites flying around in space.
     this.size = Math.min(rect.width, rect.height);
     this.scene.style.setProperty('--scene-size', `${this.size}px`);
-    // Tight cylinder — chips orbit close around the Earth. vSpacing must clear
-    // the bigger chips (now ~0.21·size) vertically without ring-to-ring overlap.
+    // vSpacing accounts for perspective: tiltX pulls top/bottom rings closer
+    // to the middle in screen space, so the *world* spacing has to be ~35%
+    // greater than the chip half-heights to keep a visible gap on screen.
     this.radius = this.size * 0.32;
-    this.vSpacing = this.size * 0.22;
+    this.vSpacing = this.size * 0.30;
   }
 
   positionChips() {
