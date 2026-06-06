@@ -64,7 +64,7 @@
 <link rel="stylesheet" href="assets/css/tokens.css?v=17"/>
 <link rel="stylesheet" href="assets/css/base.css?v=17"/>
 <link rel="stylesheet" href="assets/css/components.css?v=17"/>
-<link rel="stylesheet" href="assets/css/sections.css?v=18"/>
+<link rel="stylesheet" href="assets/css/sections.css?v=29"/>
 
 <!-- ============ Structured data ============ -->
 <!-- Parent Organization -->
@@ -526,6 +526,128 @@
   </div>
 </section>
 
+<!-- ========== BRANDS ========== -->
+<section class="section brands" id="brands">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="kicker">Authorised dealer</span>
+      <h2>25+ of India's most trusted brands. Under one roof.</h2>
+      <p>100% genuine stock, full manufacturer warranty. We only carry brands that back their products with strong after-sales service in Kolkata.</p>
+    </div>
+    <div class="brand-globe-scene" data-brand-globe aria-label="Authorised brands">
+      <svg class="brand-globe-earth" viewBox="-100 -100 200 200" aria-hidden="true">
+        <defs>
+          <radialGradient id="ocean-grad" cx="38%" cy="32%" r="72%">
+            <stop offset="0%"  stop-color="#2d8fbf" stop-opacity="0.55"/>
+            <stop offset="55%" stop-color="#155680" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#08263d" stop-opacity="0.60"/>
+          </radialGradient>
+          <radialGradient id="atm-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="86%" stop-color="rgba(34,211,238,0)"/>
+            <stop offset="96%" stop-color="rgba(34,211,238,0.35)"/>
+            <stop offset="100%" stop-color="rgba(34,211,238,0)"/>
+          </radialGradient>
+          <!-- Sun-lit highlight, biased up-left like a planet lit from upper-left -->
+          <radialGradient id="sun-grad" cx="30%" cy="26%" r="55%">
+            <stop offset="0%"  stop-color="rgba(255,255,255,0.32)"/>
+            <stop offset="45%" stop-color="rgba(255,255,255,0.08)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+          <!-- Limb darkening / terminator — dark ring near the edge so the disk reads as a sphere -->
+          <radialGradient id="limb-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="rgba(2,15,30,0)"/>
+            <stop offset="55%"  stop-color="rgba(2,15,30,0)"/>
+            <stop offset="85%"  stop-color="rgba(2,15,30,0.42)"/>
+            <stop offset="100%" stop-color="rgba(2,15,30,0.88)"/>
+          </radialGradient>
+          <!-- Sphere mask: fade map toward the limb so continents seem to curve away -->
+          <radialGradient id="sphere-mask-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#ffffff"/>
+            <stop offset="60%"  stop-color="#ffffff"/>
+            <stop offset="95%"  stop-color="#2a2a2a"/>
+            <stop offset="100%" stop-color="#000000"/>
+          </radialGradient>
+          <mask id="sphere-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="200" height="200">
+            <circle cx="0" cy="0" r="95" fill="url(#sphere-mask-grad)"/>
+          </mask>
+          <clipPath id="earth-clip">
+            <circle cx="0" cy="0" r="95"/>
+          </clipPath>
+        </defs>
+
+        <!-- Outer atmosphere halo -->
+        <circle cx="0" cy="0" r="100" fill="url(#atm-grad)"/>
+
+        <!-- Ocean -->
+        <circle cx="0" cy="0" r="95" fill="url(#ocean-grad)"/>
+
+        <!-- Real continents, zoomed in so only ~one hemisphere shows; masked to fade at the limb. -->
+        <g mask="url(#sphere-mask)" clip-path="url(#earth-clip)">
+          <image href="assets/img/ui/world-continents.svg"
+                 x="-180" y="-83.5"
+                 width="300" height="166.9"
+                 preserveAspectRatio="xMidYMid meet"
+                 opacity="0.88"/>
+        </g>
+
+        <!-- Graticule (lat/long faintly) — toned down so it doesn't read as a flat grid -->
+        <g clip-path="url(#earth-clip)" fill="none" stroke="rgba(34,211,238,0.12)" stroke-width="0.5">
+          <ellipse cx="0" cy="-58" rx="76"  ry="6"/>
+          <ellipse cx="0" cy="-30" rx="90"  ry="11"/>
+          <ellipse cx="0" cy="0"   rx="95"  ry="16"/>
+          <ellipse cx="0" cy="30"  rx="90"  ry="11"/>
+          <ellipse cx="0" cy="58"  rx="76"  ry="6"/>
+          <ellipse cx="0" cy="0" rx="22" ry="95"/>
+          <ellipse cx="0" cy="0" rx="55" ry="95"/>
+          <ellipse cx="0" cy="0" rx="80" ry="95"/>
+        </g>
+
+        <!-- Limb darkening (terminator) — sells the sphere -->
+        <circle cx="0" cy="0" r="95" fill="url(#limb-grad)" pointer-events="none"/>
+
+        <!-- Sun-lit highlight (upper-left bias) -->
+        <circle cx="0" cy="0" r="95" fill="url(#sun-grad)" pointer-events="none"/>
+
+        <!-- Sphere outline -->
+        <circle cx="0" cy="0" r="95" fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="0.9"/>
+      </svg>
+      <div class="brand-globe-rotator">
+      <!-- MIDDLE RING (major brands, larger) -->
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/lg.png" alt="LG"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/samsung.png" alt="Samsung"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/sony.svg" alt="Sony"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/bosch-stacked.png" alt="Bosch"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/philips.png" alt="Philips"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/daikin.png" alt="Daikin"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/hitachi-nobg.png?v=2" alt="Hitachi"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/panasonic-nobg.png" alt="Panasonic"/></div>
+      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/kent.png" alt="Kent"/></div>
+      <!-- TOP RING (secondary) -->
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/ogeneral-nobg.png" alt="O General"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/carrier.png" alt="Carrier"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/voltas.png" alt="Voltas"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/bajaj-nobg.png" alt="Bajaj"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/crompton-nobg.png" alt="Crompton"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/prestige.png" alt="Prestige"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/kutchina.jpg" alt="Kutchina"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/faber.png" alt="Faber"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/godrej.png" alt="Godrej"/></div>
+      <!-- BOTTOM RING (secondary) -->
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/hindware-nobg.png" alt="Hindware"/></div>
+      <div class="brand-globe-item is-prominent" tabindex="0"><img src="assets/brands/tcl.svg?v=2" alt="TCL"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/kelvinator-nobg.png" alt="Kelvinator"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/bpl.png" alt="BPL"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/symphony-nobg.png" alt="Symphony"/></div>
+      <div class="brand-globe-item is-prominent" tabindex="0"><img src="assets/brands/venus-nobg.png?v=2" alt="Venus"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/boat.png" alt="boAt"/></div>
+      <div class="brand-globe-item is-prominent" tabindex="0"><img src="assets/brands/pureit-nobg.png?v=2" alt="Pureit"/></div>
+      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/ifb.png" alt="IFB"/></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ========== WHY US ========== -->
 <section class="section" id="why">
   <div class="container">
@@ -669,128 +791,6 @@
   </div>
 </section>
 
-<!-- ========== BRANDS ========== -->
-<section class="section brands" id="brands">
-  <div class="container">
-    <div class="section-head section-head-center">
-      <span class="kicker">Authorised dealer</span>
-      <h2>25+ of India's most trusted brands. Under one roof.</h2>
-      <p>100% genuine stock, full manufacturer warranty. We only carry brands that back their products with strong after-sales service in Kolkata.</p>
-    </div>
-    <div class="brand-globe-scene" data-brand-globe aria-label="Authorised brands">
-      <svg class="brand-globe-earth" viewBox="-100 -100 200 200" aria-hidden="true">
-        <defs>
-          <radialGradient id="ocean-grad" cx="38%" cy="32%" r="72%">
-            <stop offset="0%"  stop-color="#2d8fbf" stop-opacity="0.55"/>
-            <stop offset="55%" stop-color="#155680" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#08263d" stop-opacity="0.60"/>
-          </radialGradient>
-          <radialGradient id="atm-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="86%" stop-color="rgba(34,211,238,0)"/>
-            <stop offset="96%" stop-color="rgba(34,211,238,0.35)"/>
-            <stop offset="100%" stop-color="rgba(34,211,238,0)"/>
-          </radialGradient>
-          <!-- Sun-lit highlight, biased up-left like a planet lit from upper-left -->
-          <radialGradient id="sun-grad" cx="30%" cy="26%" r="55%">
-            <stop offset="0%"  stop-color="rgba(255,255,255,0.32)"/>
-            <stop offset="45%" stop-color="rgba(255,255,255,0.08)"/>
-            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-          </radialGradient>
-          <!-- Limb darkening / terminator — dark ring near the edge so the disk reads as a sphere -->
-          <radialGradient id="limb-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stop-color="rgba(2,15,30,0)"/>
-            <stop offset="55%"  stop-color="rgba(2,15,30,0)"/>
-            <stop offset="85%"  stop-color="rgba(2,15,30,0.42)"/>
-            <stop offset="100%" stop-color="rgba(2,15,30,0.88)"/>
-          </radialGradient>
-          <!-- Sphere mask: fade map toward the limb so continents seem to curve away -->
-          <radialGradient id="sphere-mask-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stop-color="#ffffff"/>
-            <stop offset="60%"  stop-color="#ffffff"/>
-            <stop offset="95%"  stop-color="#2a2a2a"/>
-            <stop offset="100%" stop-color="#000000"/>
-          </radialGradient>
-          <mask id="sphere-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="200" height="200">
-            <circle cx="0" cy="0" r="95" fill="url(#sphere-mask-grad)"/>
-          </mask>
-          <clipPath id="earth-clip">
-            <circle cx="0" cy="0" r="95"/>
-          </clipPath>
-        </defs>
-
-        <!-- Outer atmosphere halo -->
-        <circle cx="0" cy="0" r="100" fill="url(#atm-grad)"/>
-
-        <!-- Ocean -->
-        <circle cx="0" cy="0" r="95" fill="url(#ocean-grad)"/>
-
-        <!-- Real continents, zoomed in so only ~one hemisphere shows; masked to fade at the limb. -->
-        <g mask="url(#sphere-mask)" clip-path="url(#earth-clip)">
-          <image href="assets/img/ui/world-continents.svg"
-                 x="-180" y="-83.5"
-                 width="300" height="166.9"
-                 preserveAspectRatio="xMidYMid meet"
-                 opacity="0.88"/>
-        </g>
-
-        <!-- Graticule (lat/long faintly) — toned down so it doesn't read as a flat grid -->
-        <g clip-path="url(#earth-clip)" fill="none" stroke="rgba(34,211,238,0.12)" stroke-width="0.5">
-          <ellipse cx="0" cy="-58" rx="76"  ry="6"/>
-          <ellipse cx="0" cy="-30" rx="90"  ry="11"/>
-          <ellipse cx="0" cy="0"   rx="95"  ry="16"/>
-          <ellipse cx="0" cy="30"  rx="90"  ry="11"/>
-          <ellipse cx="0" cy="58"  rx="76"  ry="6"/>
-          <ellipse cx="0" cy="0" rx="22" ry="95"/>
-          <ellipse cx="0" cy="0" rx="55" ry="95"/>
-          <ellipse cx="0" cy="0" rx="80" ry="95"/>
-        </g>
-
-        <!-- Limb darkening (terminator) — sells the sphere -->
-        <circle cx="0" cy="0" r="95" fill="url(#limb-grad)" pointer-events="none"/>
-
-        <!-- Sun-lit highlight (upper-left bias) -->
-        <circle cx="0" cy="0" r="95" fill="url(#sun-grad)" pointer-events="none"/>
-
-        <!-- Sphere outline -->
-        <circle cx="0" cy="0" r="95" fill="none" stroke="rgba(34,211,238,0.55)" stroke-width="0.9"/>
-      </svg>
-      <div class="brand-globe-rotator">
-      <!-- MIDDLE RING (major brands, larger) -->
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/lg.png" alt="LG"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/samsung.png" alt="Samsung"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/daikin.png" alt="Daikin"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/voltas.png" alt="Voltas"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/hitachi.png" alt="Hitachi"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/godrej.png" alt="Godrej"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/panasonic.webp" alt="Panasonic"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/ifb.png" alt="IFB"/></div>
-      <div class="brand-globe-item is-major" tabindex="0"><img src="assets/brands/philips.png" alt="Philips"/></div>
-      <!-- TOP RING (secondary) -->
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/mitsubishi-heavy.svg" alt="Mitsubishi Heavy"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/ogeneral.png" alt="O General"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/carrier.png" alt="Carrier"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/haier.svg" alt="Haier"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/bajaj.png" alt="Bajaj"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/crompton.svg" alt="Crompton"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/prestige.png" alt="Prestige"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/kutchina.jpg" alt="Kutchina"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/faber.png" alt="Faber"/></div>
-      <!-- BOTTOM RING (secondary) -->
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/hindware.svg" alt="Hindware"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/midea.svg" alt="Midea"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/tcl.svg" alt="TCL"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/kelvinator.png" alt="Kelvinator"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/bpl.png" alt="BPL"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/symphony.jpg" alt="Symphony"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/venus.jpg" alt="Venus"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/boat.png" alt="boAt"/></div>
-      <div class="brand-globe-item" tabindex="0"><img src="assets/brands/pureit.png" alt="Pureit"/></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
 <!-- ========== FOR BUSINESS ========== -->
 <section class="section business" id="business">
   <div class="container business-grid">
@@ -816,7 +816,7 @@
       <div class="trusted-by">
         <div class="kicker">Trusted by</div>
         <div class="trusted-logos">
-          <span class="trusted-logo-pill">Goodwyn Tea</span><span class="trusted-logo-pill">QuantArt</span><span class="trusted-logo-pill">Outrum Club</span><span class="trusted-logo-pill">Federal Bank</span><span class="trusted-logo-pill">VLCC</span><span class="trusted-logo-pill">Anmol</span><span class="trusted-logo-pill">Style Baazar</span><span class="trusted-logo-pill">Astral Studios</span><span class="trusted-logo-pill">KPC Medical College</span><span class="trusted-logo-pill">Jai Balaji Industries</span><span class="trusted-logo-pill">Tongani Tea Co.</span><span class="trusted-logo-pill">Primarc</span><span class="trusted-logo-pill">Yeoman Marines</span><span class="trusted-logo-pill">Haldia Petrochemicals</span><span class="trusted-logo-pill">&amp; many more</span>
+          <span class="trusted-logo-pill">Primarc</span><span class="trusted-logo-pill">Haldia Petrochemicals</span><span class="trusted-logo-pill">Yeoman Marines</span><span class="trusted-logo-pill">Federal Bank</span><span class="trusted-logo-pill">Anmol</span><span class="trusted-logo-pill">Outram Club</span><span class="trusted-logo-pill">VLCC</span><span class="trusted-logo-pill">KPC Medical College</span><span class="trusted-logo-pill">Goodwyn Tea</span><span class="trusted-logo-pill">QuantArt</span><span class="trusted-logo-pill">Style Baazar</span><span class="trusted-logo-pill">Astral Studios</span><span class="trusted-logo-pill">Jai Balaji Industries</span><span class="trusted-logo-pill">Tongani Tea Co.</span><span class="trusted-logo-pill">&amp; many more</span>
         </div>
       </div>
     </div>
@@ -955,6 +955,6 @@
 <script type="module" src="assets/js/motion.js" defer></script>
 <script type="module" src="assets/js/showroom-finder.js" defer></script>
 <script type="module" src="assets/js/enquiry.js" defer></script>
-<script type="module" src="assets/js/brand-globe.js?v=18" defer></script>
+<script type="module" src="assets/js/brand-globe.js?v=25" defer></script>
 </body>
 </html>

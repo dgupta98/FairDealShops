@@ -3,10 +3,6 @@
    3 horizontal rings of logos wrapping a vertical glass cylinder.
    Middle ring = flagship brands (larger). Spins steadily around
    the Y axis like a film reel. Drag to adjust speed.
-
-   Click a chip to zoom: the cylinder pauses, the chip rotates to
-   face the camera, scales up, and translates forward. Click outside
-   (or press Escape) to release.
    ============================================================ */
 
 class BrandCylinder {
@@ -35,11 +31,6 @@ class BrandCylinder {
     this.hoveredIdx = -1;
     this.hoverProgress = new Float32Array(this.items.length);
 
-    // Zoom state — one chip in focus at a time
-    this.zoomedIdx = -1;
-    this.zoomProgress = 0;          // 0 → 1 ease toward zoomed
-    this.targetRotY = null;         // rotY destination so chip faces camera
-
     // Per-chip ring geometry (filled in measure() → positionChips())
     this.chipGeom = new Array(this.items.length);
 
@@ -53,7 +44,6 @@ class BrandCylinder {
     this.onPointerDown = this.onPointerDown.bind(this);
     this.onPointerMove = this.onPointerMove.bind(this);
     this.onPointerUp = this.onPointerUp.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
     this.onResize = () => { this.measure(); this.positionChips(); };
 
     this.measure();
@@ -64,11 +54,10 @@ class BrandCylinder {
     window.addEventListener('pointermove', this.onPointerMove, { passive: true });
     window.addEventListener('pointerup', this.onPointerUp);
     window.addEventListener('pointercancel', this.onPointerUp);
-    document.addEventListener('keydown', this.onKeyDown);
 
     this.items.forEach((el, idx) => {
       const activate = () => {
-        if (this.dragging || this.zoomedIdx >= 0) return;
+        if (this.dragging) return;
         this.hoveredIdx = idx;
       };
       const deactivate = () => {
@@ -78,10 +67,6 @@ class BrandCylinder {
       el.addEventListener('pointerleave', deactivate);
       el.addEventListener('focus', activate);
       el.addEventListener('blur', deactivate);
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.toggleZoom(idx);
-      });
     });
 
     if (this.reducedMotion) {
@@ -94,15 +79,9 @@ class BrandCylinder {
     const rect = this.scene.getBoundingClientRect();
     // Drive every dimension (chip size, earth size, radius, vSpacing) from a
     // single `size` so the whole composition scales together across viewports.
-    // Cylinder radius is intentionally smaller than the Earth's radius (which
-    // is 0.42·size) so chips orbit *just inside* the globe perimeter and read
-    // as logos pinned to the surface, not satellites flying around in space.
     this.size = Math.min(rect.width, rect.height);
     this.scene.style.setProperty('--scene-size', `${this.size}px`);
-    // vSpacing accounts for perspective: tiltX pulls top/bottom rings closer
-    // to the middle in screen space, so the *world* spacing has to be ~35%
-    // greater than the chip half-heights to keep a visible gap on screen.
-    this.radius = this.size * 0.32;
+    this.radius = this.size * 0.60;
     this.vSpacing = this.size * 0.30;
   }
 
@@ -122,53 +101,7 @@ class BrandCylinder {
     }
   }
 
-  toggleZoom(idx) {
-    if (this.zoomedIdx === idx) {
-      this.exitZoom();
-    } else {
-      this.enterZoom(idx);
-    }
-  }
-
-  enterZoom(idx) {
-    const geom = this.chipGeom[idx];
-    if (!geom) return;
-    // Remove zoomed class from any previous target
-    if (this.zoomedIdx >= 0) {
-      this.items[this.zoomedIdx].classList.remove('is-zoomed-target');
-    }
-    this.zoomedIdx = idx;
-    this.hoveredIdx = -1;
-    this.velY = 0;
-    // Pick shortest rotation path so the chip's yaw faces the camera.
-    // World-Y rotation of a chip = rotY + yaw; we want this to be 0 (mod 2π).
-    this.targetRotY = -geom.yaw;
-    this.scene.classList.add('is-zoomed');
-    this.items[idx].classList.add('is-zoomed-target');
-  }
-
-  exitZoom() {
-    if (this.zoomedIdx < 0) return;
-    this.items[this.zoomedIdx].classList.remove('is-zoomed-target');
-    this.zoomedIdx = -1;
-    this.targetRotY = null;
-    this.scene.classList.remove('is-zoomed');
-    // Resume spin
-    this.velY = this.baseVel;
-  }
-
-  onKeyDown(e) {
-    if (e.key === 'Escape' && this.zoomedIdx >= 0) {
-      this.exitZoom();
-    }
-  }
-
   onPointerDown(e) {
-    // If zoomed and click lands outside any chip, exit zoom.
-    if (this.zoomedIdx >= 0 && !e.target.closest('.brand-globe-item')) {
-      this.exitZoom();
-      return;
-    }
     if (e.target.closest('.brand-globe-item')) {
       this.pendingDrag = { x: e.clientX, y: e.clientY, pointerId: e.pointerId };
       return;
@@ -177,7 +110,6 @@ class BrandCylinder {
   }
 
   startDrag(e) {
-    if (this.zoomedIdx >= 0) return;
     this.dragging = true;
     this.hoveredIdx = -1;
     this.lastPointer = { x: e.clientX, y: e.clientY };
@@ -206,26 +138,11 @@ class BrandCylinder {
     this.dragging = false;
     this.pendingDrag = null;
     this.scene.classList.remove('is-dragging');
-    if (this.zoomedIdx < 0 && Math.abs(this.velY) < this.baseVel) this.velY = this.baseVel;
-  }
-
-  // Normalize an angle delta to (-π, π] so easing takes the shortest path.
-  shortestDelta(target, current) {
-    const TAU = Math.PI * 2;
-    let d = (target - current) % TAU;
-    if (d > Math.PI)  d -= TAU;
-    if (d < -Math.PI) d += TAU;
-    return d;
+    if (Math.abs(this.velY) < this.baseVel) this.velY = this.baseVel;
   }
 
   tick() {
-    // ----- Cylinder rotation -----
-    if (this.zoomedIdx >= 0 && this.targetRotY !== null) {
-      // Ease rotY to bring the zoomed chip to face the camera (shortest path).
-      const delta = this.shortestDelta(this.targetRotY, this.rotY);
-      this.rotY += delta * 0.10;
-      this.velY = 0;
-    } else if (!this.dragging) {
+    if (!this.dragging) {
       if (this.hoveredIdx >= 0) {
         // Hover pauses the reel at its current angle — smooth ramp down.
         this.velY += (0 - this.velY) * 0.18;
@@ -233,21 +150,12 @@ class BrandCylinder {
         // Settle back toward base spin speed when nothing is hovered.
         this.velY += (this.baseVel - this.velY) * 0.05;
       }
-      this.rotY += this.velY;
-    } else {
-      this.rotY += this.velY;
     }
+    this.rotY += this.velY;
 
-    // Cylinder transform (parent)
     this.rotator.style.transform =
       `rotateX(${this.tiltX.toFixed(4)}rad) rotateY(${this.rotY.toFixed(4)}rad)`;
 
-    // ----- Zoom progress -----
-    const zoomTarget = this.zoomedIdx >= 0 ? 1 : 0;
-    const zoomEase = this.reducedMotion ? 1 : 0.12;
-    this.zoomProgress += (zoomTarget - this.zoomProgress) * zoomEase;
-
-    // ----- Per-chip transforms -----
     const easeFactor = this.reducedMotion ? 1 : 0.22;
     for (let i = 0; i < this.items.length; i++) {
       const geom = this.chipGeom[i];
@@ -256,14 +164,8 @@ class BrandCylinder {
       const target = (i === this.hoveredIdx) ? 1 : 0;
       this.hoverProgress[i] += (target - this.hoverProgress[i]) * easeFactor;
       const p = this.hoverProgress[i];
-      let popScale = 1 + p * 0.32;          // hover scales up to ~1.32x
-      let zLift = p * 50;                   // pop ~50px toward camera on hover
-
-      // Zoomed chip — strong scale + translateZ forward.
-      if (i === this.zoomedIdx) {
-        popScale = 1 + this.zoomProgress * 1.05;  // up to ~2.05x
-        zLift = this.zoomProgress * 220;          // 220px forward
-      }
+      const popScale = 1 + p * 0.32;
+      const zLift = p * 50;
 
       this.items[i].style.transform =
         `translate3d(${geom.x.toFixed(2)}px, ${geom.y.toFixed(2)}px, ${(geom.z + zLift).toFixed(2)}px) ` +

@@ -609,14 +609,13 @@
   perspective-origin: 50% 45%;
 }
 .brand-globe-scene.is-dragging { cursor: grabbing; }
-.brand-globe-scene.is-zoomed { cursor: zoom-out; }
 
 /* Soft cylindrical halo behind everything */
 .brand-globe-scene::before {
   content: "";
   position: absolute;
   left: 50%; top: 50%;
-  width: 64%; height: 96%;
+  width: 82%; height: 96%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background:
@@ -695,8 +694,13 @@
 /* MAJOR — flagship brands in the middle ring, larger and brighter */
 .brand-globe-item.is-major {
   /* Override the chip-size token; width/margin/padding/radius pick it up. */
-  --chip-size: clamp(48px, calc(var(--scene-size) * 0.21), 130px);
+  --chip-size: clamp(60px, calc(var(--scene-size) * 0.28), 170px);
   background: linear-gradient(160deg, #ffffff 0%, #f5fafd 100%);
+}
+
+/* PROMINENT — secondary chips bumped to fill space between regular and major. */
+.brand-globe-item.is-prominent {
+  --chip-size: clamp(52px, calc(var(--scene-size) * 0.24), 145px);
 }
 
 /* Gradient rim — cyan→gold border via masked pseudo */
@@ -731,6 +735,17 @@
 .brand-globe-item.is-major img[src$=".svg"] {
   transform: scale(1.30);
 }
+/* Simple Icons marks fill their 24×24 viewBox edge-to-edge, so the generic
+   bump above blows them out of the major chip. Pull this one back. */
+.brand-globe-item.is-major img[src$="sony.svg"] {
+  transform: scale(0.78);
+}
+/* Wide wordmarks read smaller in a square chip because object-fit:contain
+   constrains them to width. Let these specific ones overflow a touch. */
+.brand-globe-item img[src$="ogeneral-nobg.png"],
+.brand-globe-item img[src$="crompton-nobg.png"] {
+  transform: scale(1.18);
+}
 
 /* HOVER — cylinder pauses (JS), chip scales up subtly (JS) */
 .brand-globe-item:hover,
@@ -741,25 +756,6 @@
 .brand-globe-item:hover::before,
 .brand-globe-item:focus-visible::before {
   opacity: 1;
-}
-
-/* ZOOMED state — clicked chip pops to the front; others dim and blur */
-.brand-globe-scene.is-zoomed .brand-globe-item:not(.is-zoomed-target) {
-  opacity: 0.18;
-  filter: blur(2.5px) saturate(0.5);
-  pointer-events: none;
-}
-.brand-globe-item.is-zoomed-target {
-  z-index: 100;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 24px 60px -10px rgba(0, 0, 0, 0.7),
-    0 0 40px rgba(34, 211, 238, 0.55),
-    0 0 80px rgba(34, 211, 238, 0.25);
-}
-.brand-globe-item.is-zoomed-target::before {
-  opacity: 1;
-  background: linear-gradient(135deg, rgba(34, 211, 238, 0.85), rgba(196, 154, 92, 0.7));
 }
 
 @media (max-width: 720px) {
