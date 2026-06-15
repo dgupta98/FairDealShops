@@ -56,10 +56,44 @@ function stop() {
 
 window.goSlide = (n) => { go(n); start(); };
 
+const hasHover = matchMedia('(hover: hover)').matches;
+
 if (slides.length) {
   start();
-  if (visual && !reducedMotion) {
+  if (visual && !reducedMotion && hasHover) {
     visual.addEventListener('pointerenter', stop);
     visual.addEventListener('pointerleave', start);
   }
+}
+
+if (visual && slides.length > 1) {
+  const SWIPE_THRESHOLD = 40;
+  let startX = 0;
+  let startY = 0;
+  let tracking = false;
+
+  visual.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+    stop();
+  }, { passive: true });
+
+  visual.addEventListener('touchend', (e) => {
+    if (!tracking) return;
+    tracking = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - startX;
+    const dy = t.clientY - startY;
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+      go(idx + (dx < 0 ? 1 : -1));
+    }
+    start();
+  });
+
+  visual.addEventListener('touchcancel', () => {
+    tracking = false;
+    start();
+  });
 }
