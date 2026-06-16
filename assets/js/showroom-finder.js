@@ -61,6 +61,7 @@ const fields = {
   name: document.getElementById('sfName'),
   addr: document.getElementById('sfAddr'),
   call: document.getElementById('sfCall'),
+  callText: document.getElementById('sfCallText'),
   map: document.getElementById('sfMap'),
   wa: document.getElementById('sfWa'),
   frame: document.getElementById('sfGmapFrame'),
@@ -73,10 +74,8 @@ function activate(i) {
   tabs[i].classList.add('active');
   if (fields.name) fields.name.textContent = s.name;
   if (fields.addr) fields.addr.textContent = s.addr;
-  if (fields.call) {
-    fields.call.href = s.phone;
-    fields.call.textContent = '📞 ' + s.phoneDisp;
-  }
+  if (fields.call) fields.call.href = s.phone;
+  if (fields.callText) fields.callText.textContent = s.phoneDisp;
   if (fields.map) fields.map.href = s.map;
   if (fields.wa) fields.wa.href = s.wa;
   if (fields.frame) fields.frame.src = s.embed;

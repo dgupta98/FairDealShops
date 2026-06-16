@@ -53,18 +53,18 @@
 <meta name="twitter:image:alt" content="Fairdeal International — Kolkata's trusted home appliance retailer since 1966"/>
 
 <!-- Performance: preconnects + critical resource preload -->
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://maps.google.com"/>
 <link rel="dns-prefetch" href="https://wa.me"/>
+<link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" as="image" href="assets/img/hero/01-tvs.webp" fetchpriority="high"/>
 
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
+<link href="assets/fonts/fonts.css" rel="stylesheet"/>
 
 <link rel="stylesheet" href="assets/css/tokens.css?v=17"/>
 <link rel="stylesheet" href="assets/css/base.css?v=17"/>
 <link rel="stylesheet" href="assets/css/components.css?v=17"/>
-<link rel="stylesheet" href="assets/css/sections.css?v=29"/>
+<link rel="stylesheet" href="assets/css/sections.css?v=34"/>
 
 <!-- ============ Structured data ============ -->
 <!-- Parent Organization -->
@@ -692,23 +692,6 @@
 </section>
 
 <!-- ========== HOW IT WORKS ========== -->
-<section class="section how-it-works" id="how">
-  <div class="container">
-    <div class="section-head section-head-center">
-      <span class="kicker">Buying from Fairdeal is simple</span>
-      <h2>How buying from us works</h2>
-      <p>From first conversation to after-sales support — we're with you at every step.</p>
-    </div>
-    <div class="steps-grid" data-reveal-stagger="80">
-      <div class="step reveal"><div class="step-num">1</div><div class="step-text"><h4>Tell us what you need</h4><p>Visit any showroom or WhatsApp us your requirements — room size, budget, family size.</p></div></div>
-      <div class="step reveal"><div class="step-num">2</div><div class="step-text"><h4>Get model suggestions &amp; best price</h4><p>Our team shortlists the right models and gives you a fair, transparent quote.</p></div></div>
-      <div class="step reveal"><div class="step-num">3</div><div class="step-text"><h4>Visit showroom or confirm on WhatsApp</h4><p>See the product in person at any of our 6 showrooms, or confirm directly on chat.</p></div></div>
-      <div class="step reveal"><div class="step-num">4</div><div class="step-text"><h4>Delivery &amp; installation support</h4><p>24-hour express delivery and brand-authorised installation at your home.</p></div></div>
-      <div class="step reveal"><div class="step-num">5</div><div class="step-text"><h4>Call us anytime for after-sales</h4><p>Extended warranty, AMC, servicing — we remain your point of contact with the brand.</p></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- ========== STORY ========== -->
 <section class="story section">
   <div class="container story-grid">
@@ -731,6 +714,23 @@
       <p>Fairdeal International was founded in Kolkata more than sixty years ago — in an era when fans and radios were household essentials, the drawing-room television brought entire neighbourhoods together, and a new refrigerator was something the whole family celebrated.</p>
       <p>What started as a single shop in 1966 has grown into six showrooms across South Kolkata — Behala, Tollygunge, Santoshpur, Garia, Sonarpur and Baruipur. The brands we carry have changed. The technology has changed. The one thing that hasn't is the way we sell: tell the customer the truth, give them the right price, and stand behind every product we put in their home.</p>
       <div class="story-quote">"The same shop that sold the parents' first TV in the eighties is selling the daughter her first refrigerator today. That's not marketing. That's the business."</div>
+    </div>
+  </div>
+</section>
+
+<section class="section how-it-works" id="how">
+  <div class="container">
+    <div class="section-head section-head-center">
+      <span class="kicker">Buying from Fairdeal is simple</span>
+      <h2>How buying from us works</h2>
+      <p>From first conversation to after-sales support — we're with you at every step.</p>
+    </div>
+    <div class="steps-grid" data-reveal-stagger="80">
+      <div class="step reveal"><div class="step-num">1</div><div class="step-text"><h4>Tell us what you need</h4><p>Visit any showroom or WhatsApp us your requirements — room size, budget, family size.</p></div></div>
+      <div class="step reveal"><div class="step-num">2</div><div class="step-text"><h4>Get model suggestions &amp; best price</h4><p>Our team shortlists the right models and gives you a fair, transparent quote.</p></div></div>
+      <div class="step reveal"><div class="step-num">3</div><div class="step-text"><h4>Visit showroom or confirm on WhatsApp</h4><p>See the product in person at any of our 6 showrooms, or confirm directly on chat.</p></div></div>
+      <div class="step reveal"><div class="step-num">4</div><div class="step-text"><h4>Delivery &amp; installation support</h4><p>24-hour express delivery and brand-authorised installation at your home.</p></div></div>
+      <div class="step reveal"><div class="step-num">5</div><div class="step-text"><h4>Call us anytime for after-sales</h4><p>Extended warranty, AMC, servicing — we remain your point of contact with the brand.</p></div></div>
     </div>
   </div>
 </section>
@@ -847,10 +847,10 @@
         <div class="sf-details">
           <div class="sf-name" id="sfName">Behala</div>
           <div class="sf-addr" id="sfAddr">No. 1 Sourin Roy Road, Behala Tram Depot, Kolkata 700 034</div>
-          <div class="sf-hours">&#9200; Open 7 days &nbsp;·&nbsp; 10:30 AM – 9:00 PM</div>
+          <div class="sf-hours"><svg class="sf-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Open 7 days &nbsp;·&nbsp; 10:30 AM – 9:00 PM</div>
           <div class="sf-actions">
-            <a class="sf-btn sf-btn-call" id="sfCall" href="tel:+919051812244">&#128222; 9051 812 244</a>
-            <a class="sf-btn sf-btn-map" id="sfMap" href="https://maps.app.goo.gl/iRh3nUxtouPiHkSj9?g_st=iw" target="_blank" rel="noopener">Get Directions &#8599;</a>
+            <a class="sf-btn sf-btn-call" id="sfCall" href="tel:+919051812244" aria-label="Call Fairdeal showroom"><svg class="sf-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span id="sfCallText">9051 812 244</span></a>
+            <a class="sf-btn sf-btn-map" id="sfMap" href="https://maps.app.goo.gl/iRh3nUxtouPiHkSj9?g_st=iw" target="_blank" rel="noopener">Get Directions <svg class="sf-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
             <a class="sf-btn sf-btn-wa" id="sfWa" href="https://wa.me/917003364494?text=Hi%20Fairdeal%20Behala%2C%20I%20have%20an%20enquiry" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
@@ -887,9 +887,10 @@
       </div>
       <div class="enquiry-form-wrap">
         <div class="form-row">
-          <div class="form-group"><label for="fname">Your Name *</label><input type="text" id="fname" placeholder="Full name" required/></div>
-          <div class="form-group"><label for="fphone">Phone Number *</label><input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX" required/></div>
+          <div class="form-group"><label for="fname">Your Name *</label><input type="text" id="fname" placeholder="Full name" autocomplete="name" required/></div>
+          <div class="form-group"><label for="fphone">Phone Number *</label><input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX" autocomplete="tel" required/></div>
         </div>
+        <div class="form-group"><label for="femail">Email</label><input type="email" id="femail" placeholder="you@example.com" autocomplete="email"/></div>
         <div class="form-group"><label for="fproduct">Product Interested In</label>
           <select id="fproduct"><option value="">Select a category...</option><option>LED / QLED / MiniLED / OLED TV</option><option>Audio (Soundbar / Home Theatre / Speaker)</option><option>Air Conditioner</option><option>Refrigerator</option><option>Washing Machine / Dryer</option><option>Kitchen Appliances</option><option>Water Purifier</option><option>Fan / Geyser / Cooler</option><option>Personal Care / Air Purifier</option><option>Multiple / Bulk order</option><option>Other</option></select>
         </div>
@@ -953,8 +954,8 @@
 <script type="module" src="assets/js/hero-slider.js" defer></script>
 <script type="module" src="assets/js/reveal.js" defer></script>
 <script type="module" src="assets/js/motion.js" defer></script>
-<script type="module" src="assets/js/showroom-finder.js" defer></script>
-<script type="module" src="assets/js/enquiry.js" defer></script>
+<script type="module" src="assets/js/showroom-finder.js?v=2" defer></script>
+<script type="module" src="assets/js/enquiry.js?v=3" defer></script>
 <script type="module" src="assets/js/brand-globe.js?v=25" defer></script>
 </body>
 </html>
